@@ -2,11 +2,15 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Web;
 using System.Web.Hosting;
 using System.Web.Mvc;
 using System.Web.Routing;
+using Autofac;
+using Autofac.Integration.Mvc;
 using Griffin.MvcContrib.VirtualPathProvider;
+using PluginSystemDemo.Mvc3.Infrastructure;
 
 namespace PluginSystemDemo.Mvc3
 {
@@ -15,6 +19,10 @@ namespace PluginSystemDemo.Mvc3
 
     public class MvcApplication : System.Web.HttpApplication
     {
+        private PluginService _pluginServicee;
+        private IContainer _container;
+        
+
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
             filters.Add(new HandleErrorAttribute());
@@ -38,21 +46,22 @@ namespace PluginSystemDemo.Mvc3
 
             RegisterGlobalFilters(GlobalFilters.Filters);
             RegisterRoutes(RouteTable.Routes);
-            RegisterViews();
+
+            _pluginServicee = new PluginService();
+            RegisterContainer();
+
+            
+
+            //RegisterViews();
         }
 
-        protected void RegisterViews()
+        private void RegisterContainer()
         {
-            var embeddedProvider = new EmbeddedViewFileProvider(new ExternalViewFixer());
-            embeddedProvider.Add(new NamespaceMapping(typeof(Lib.Areas.Some.Controllers.MyController).Assembly, "BasicPlugins.Lib"));
-            //GriffinVirtualPathProvider.Current.Add(embeddedProvider);
-
-            var diskLocator = new DiskFileLocator();
-            diskLocator.Add("~/", Path.GetFullPath(Server.MapPath("~/") + @"..\BasicPlugins.Lib\"));
-            var viewProvider = new ViewFileProvider(diskLocator, new ExternalViewFixer());
-            GriffinVirtualPathProvider.Current.Add(viewProvider);
-
-            HostingEnvironment.RegisterVirtualPathProvider(GriffinVirtualPathProvider.Current);
+            var builder = new ContainerBuilder();
+            builder.RegisterControllers(Assembly.GetExecutingAssembly());
+            _pluginServicee.Startup(builder);
+            _container = builder.Build();
+            DependencyResolver.SetResolver(new AutofacDependencyResolver(_container));
         }
     }
 }

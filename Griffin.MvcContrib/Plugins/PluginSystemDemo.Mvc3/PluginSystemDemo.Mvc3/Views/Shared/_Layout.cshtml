@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using PluginSystemDemo.Mvc3.Infrastructure
+<!DOCTYPE html>
 <html>
 <head>
     <title>@ViewBag.Title</title>
@@ -16,6 +17,10 @@
             </div>
             <div id="menucontainer">
                 <ul id="menu">
+                    @foreach(var item in MainMenu.Current)
+                    {
+                        <li><a href="@item.CreateUri(Url)">@item.Title</a></li>
+                    }
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                 </ul>

@@ -82,7 +82,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Infrastructure\MainMenu.cs" />
     <Compile Include="Infrastructure\PluginService.cs" />
+    <Compile Include="Infrastructure\VisualStudioHelper.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -161,6 +163,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PluginSystemDemo.PluginBase\PluginSystemDemo.PluginBase.csproj">
+      <Project>{7DF19907-7516-45F8-987B-3A767E543F02}</Project>
+      <Name>PluginSystemDemo.PluginBase</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

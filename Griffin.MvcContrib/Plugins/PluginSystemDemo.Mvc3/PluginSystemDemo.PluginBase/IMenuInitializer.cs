@@ -11,15 +11,12 @@ namespace PluginSystemDemo.PluginBase
     /// <summary>
     /// Initializeed a plgin
     /// </summary>
-    public interface IMenuInitializer
+    public interface IMenuRegistrar
     {
-        /// <summary>
-        /// Expose menu to let all plugins register their items
-        /// </summary>
-        IMenuWithChildren MainMenu { get; }
+        void Register(IMenuWithChildren mainMenu);
     }
 
-    public class PluginHandler : IMenuInitializer
+    public class PluginHandler
     {
         private readonly RouteTable _routeTable;
         RoutedMenuItem _mainMenu = new RoutedMenuItem("mainMenu", "Min menu", new{});

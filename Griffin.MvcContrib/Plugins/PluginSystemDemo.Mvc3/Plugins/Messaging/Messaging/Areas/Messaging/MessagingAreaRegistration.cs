@@ -17,7 +17,8 @@ namespace Messaging.Areas.Messaging
             context.MapRoute(
                 "Messaging_default",
                 "Messaging/{controller}/{action}/{id}",
-                new { action = "Index", id = UrlParameter.Optional }
+                new { action = "Index", id = UrlParameter.Optional },
+                new[] { GetType().Namespace + ".Controllers" }
             );
         }
     }

@@ -11,29 +11,18 @@ namespace Messaging
     /// <summary>
     /// Use Autofacs IStartable to force the registration
     /// </summary>
-    public class MenuRegistrar : IStartable
+    public class MenuRegistrar : IMenuRegistrar
     {
-        private readonly IMenuInitializer _menuInitializer;
-
-        public MenuRegistrar(IMenuInitializer menuInitializer)
-        {
-            _menuInitializer = menuInitializer;
-
-        }
-
-        /// <summary>
-        /// Perform once-off startup processing.
-        /// </summary>
-        public void Start()
+        public void Register(IMenuWithChildren mainMenu)
         {
             var item = new RoutedMenuItem("mnuItem", "Messages",
                                           new
-                                              {
-                                                  controller = "Home",
-                                                  action = "Index",
-                                                  area = "Messaging"
-                                              });
-            _menuInitializer.MainMenu.Add(item);
+                                          {
+                                              controller = "Home",
+                                              action = "Index",
+                                              area = "Messaging"
+                                          });
+            mainMenu.Add(item);
         }
     }
 }

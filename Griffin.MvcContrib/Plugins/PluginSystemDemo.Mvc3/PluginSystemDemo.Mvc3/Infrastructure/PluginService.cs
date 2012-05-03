@@ -2,61 +2,178 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Web;
+using System.Web.Compilation;
 using System.Web.Hosting;
+using System.Web.Routing;
 using Autofac;
+using Autofac.Core;
+using Griffin.MvcContrib.Logging;
 using Griffin.MvcContrib.Plugins;
 using Griffin.MvcContrib.VirtualPathProvider;
 using PluginSystemDemo.Mvc3.Infrastructure;
+using PluginSystemDemo.PluginBase;
 
-[assembly:PreApplicationStartMethod(typeof(PluginService), "PreScan")]
+[assembly: PreApplicationStartMethod(typeof (PluginService), "PreScan")]
 
 namespace PluginSystemDemo.Mvc3.Infrastructure
 {
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>Credits: http://shazwazza.com/post/Developing-a-plugin-framework-in-ASPNET-with-medium-trust.aspx</remarks>
+    public class PluginLoader2
+    {
+        private readonly List<Assembly> _assemblies = new List<Assembly>();
+        private readonly ILogger _logger = LogProvider.Current.GetLogger<PluginLoader>();
+        private readonly DirectoryInfo _pluginFolder;
+
+        /// <summary>
+        ///   Initializes the <see cref="PluginLoader" /> class.
+        /// </summary>
+        /// <param name="virtualPluginFolderPath"> App relative path to plugin folder </param>
+        /// <example>
+        ///   <code>var loader = new PluginLoader("~/"); // all plugins are located in the root folder.</code>
+        /// </example>
+        public PluginLoader2(string virtualPluginFolderPath)
+        {
+            if (virtualPluginFolderPath == null) throw new ArgumentNullException("virtualPluginFolderPath");
+            var path = virtualPluginFolderPath.StartsWith("~")
+                           ? HostingEnvironment.MapPath(virtualPluginFolderPath)
+                           : virtualPluginFolderPath;
+            if (path == null)
+                throw new InvalidOperationException(string.Format("Failed to map path '{0}'.", virtualPluginFolderPath));
+
+            _pluginFolder = new DirectoryInfo(path);
+            Startup();
+        }
+
+        /// <summary>
+        ///   Get all plugin assemblies.
+        /// </summary>
+        public IEnumerable<Assembly> Assemblies
+        {
+            get { return _assemblies; }
+        }
+
+        /// <summary>
+        ///   Called during startup to scan for all plugin assemblies
+        /// </summary>
+        public void Startup()
+        {
+            CopyPluginDlls(_pluginFolder, AppDomain.CurrentDomain.DynamicDirectory);
+        }
+
+        private void CopyPluginDlls(DirectoryInfo sourceFolder, string destinationFolder)
+        {
+            foreach (var plug in sourceFolder.GetFiles("*.dll", SearchOption.AllDirectories))
+            {
+                //if (!File.Exists(Path.Combine(destinationFolder, plug.Name)))
+                //{
+                    File.Copy(plug.FullName, Path.Combine(destinationFolder, plug.Name), true);
+                //}
+                LoadPluginAssembly(plug.FullName);
+            }
+        }
+
+        private void LoadPluginAssembly(string fullPath)
+        {
+            if (fullPath == null) throw new ArgumentNullException("fullPath");
+
+            try
+            {
+                var assembly = Assembly.LoadFrom(fullPath);
+                BuildManager.AddReferencedAssembly(assembly);
+                _assemblies.Add(assembly);
+            }
+            catch (Exception err)
+            {
+                _logger.Warning("Failed to load " + fullPath + ".", err);
+
+                var loaderEx = err as ReflectionTypeLoadException;
+                if (loaderEx != null)
+                {
+                    foreach (var exception in loaderEx.LoaderExceptions)
+                    {
+                        _logger.Warning(string.Format("Loader exception for file '{0}'.", fullPath), exception);
+                    }
+                }
+
+                throw;
+            }
+        }
+    }
+
     public class PluginService
     {
-        private readonly IContainer _container;
-        private EmbeddedViewFileProvider _embededProvider = new EmbeddedViewFileProvider(new ExternalViewFixer());
-        PluginFileLocator _fileLocator = new PluginFileLocator();
-        private ViewFileProvider _viewFileProvider;
-        DiskFileLocator _diskFileLocator = new DiskFileLocator();
+        private static PluginLoader _pluginLoader;
+        private readonly DiskFileLocator _diskFileLocator = new DiskFileLocator();
 
-        public PluginService(IContainer container)
+        private readonly EmbeddedViewFileProvider _embededProvider =
+            new EmbeddedViewFileProvider(new ExternalViewFixer());
+
+        private readonly PluginFileLocator _fileLocator = new PluginFileLocator();
+        private readonly ViewFileProvider _viewFileProvider;
+
+        public PluginService()
         {
-            _container = container;
             _viewFileProvider = new ViewFileProvider(_fileLocator);
             GriffinVirtualPathProvider.Current.Add(_viewFileProvider);
             GriffinVirtualPathProvider.Current.Add(_embededProvider);
         }
 
 
-        private static readonly PluginLoader _pluginLoader = new PluginLoader("~/Plugin");
-
         public static void PreScan()
         {
+            _pluginLoader = VisualStudioHelper.IsInVisualStudio
+                                ? new PluginLoader("~/bin/Plugins")
+                                : new PluginLoader("~/Plugins");
             _pluginLoader.Startup();
         }
 
-        public void Startup()
+        public void Startup(ContainerBuilder builder)
         {
             foreach (var plugin in _pluginLoader.Assemblies)
             {
                 // in this demo we'll assume that the project (and the root namespace is named after the area name).
                 // adjust the second argument if you do not use that convention.
                 _embededProvider.Add(new NamespaceMapping(plugin, Path.GetFileNameWithoutExtension(plugin.Location)));
-                
-                
+
+
                 // All plugins must be copied to the "plugin" sub folder.
-                _diskFileLocator.Add("~/", Path.GetFullPath(HostingEnvironment.MapPath("~/Plugins") + @"..\BasicPlugins.Lib\"));
+                _diskFileLocator.Add("~/",
+                                     Path.GetFullPath(HostingEnvironment.MapPath("~/") + @"\..\..\" +
+                                                      Path.GetFileNameWithoutExtension(plugin.Location)));
+
+                var moduleType = typeof (IModule);
+                var modules = plugin.GetTypes().Where(moduleType.IsAssignableFrom);
+                foreach (var module in modules)
+                {
+                    var mod = (IModule) Activator.CreateInstance(module);
+                    builder.RegisterModule(mod);
+                }
             }
             //GriffinVirtualPathProvider.Current.Add(embeddedProvider);
+        }
 
-            
+        public void Integrate(IContainer container)
+        {
+            foreach (var registrar in container.Resolve<IEnumerable<IMenuRegistrar>>())
+            {
+                registrar.Register(MainMenu.Current);
+            }
+
+            foreach (var registrar in container.Resolve<IEnumerable<IRouteRegistrar>>())
+            {
+                registrar.Register(RouteTable.Routes);
+            }
         }
     }
 
     public class PluginFileLocator : IViewFileLocator
     {
+        #region IViewFileLocator Members
 
         /// <summary>
         /// Get full path to a file
@@ -69,5 +186,7 @@ namespace PluginSystemDemo.Mvc3.Infrastructure
         {
             throw new NotImplementedException();
         }
+
+        #endregion
     }
 }
