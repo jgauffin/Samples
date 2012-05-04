@@ -9,8 +9,8 @@
     <ProjectTypeGuids>{E53F8FEA-EAE0-44A6-8774-FFD645390401};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Messaging</RootNamespace>
-    <AssemblyName>Messaging</AssemblyName>
+    <RootNamespace>Plugin.Messaging</RootNamespace>
+    <AssemblyName>Plugin.Messaging</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -83,7 +83,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>xcopy /y $(TargetPath) $(SolutionDir)PluginSystemDemo.Mvc3\bin\Plugins\</PostBuildEvent>
+    <PostBuildEvent>xcopy /y $(TargetPath) $(SolutionDir)PluginSystemDemo.Mvc3\bin\</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

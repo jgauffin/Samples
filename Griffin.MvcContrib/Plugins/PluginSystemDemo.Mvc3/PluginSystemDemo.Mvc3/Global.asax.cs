@@ -10,6 +10,7 @@ using System.Web.Routing;
 using Autofac;
 using Autofac.Integration.Mvc;
 using Griffin.MvcContrib.VirtualPathProvider;
+using PluginSystemDemo.Mvc3.Controllers;
 using PluginSystemDemo.Mvc3.Infrastructure;
 
 namespace PluginSystemDemo.Mvc3
@@ -21,7 +22,7 @@ namespace PluginSystemDemo.Mvc3
     {
         private PluginService _pluginServicee;
         private IContainer _container;
-        
+
 
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
@@ -35,7 +36,8 @@ namespace PluginSystemDemo.Mvc3
             routes.MapRoute(
                 "Default", // Route name
                 "{controller}/{action}/{id}", // URL with parameters
-                new { controller = "Home", action = "Index", id = UrlParameter.Optional } // Parameter defaults
+                new { controller = "Home", action = "Index", id = UrlParameter.Optional }, // Parameter defaults
+                new[] { typeof(HomeController).Namespace }
             );
 
         }
@@ -50,7 +52,7 @@ namespace PluginSystemDemo.Mvc3
             _pluginServicee = new PluginService();
             RegisterContainer();
 
-            
+
 
             //RegisterViews();
         }

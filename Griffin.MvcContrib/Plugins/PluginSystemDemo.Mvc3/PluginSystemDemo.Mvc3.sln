@@ -7,7 +7,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Plugins", "Plugins", "{CC6C
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Messaging", "Messaging", "{65236416-86F1-477C-ACDD-5E4C4AA2E066}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PluginMessaging", "Plugins\Messaging\Messaging\PluginMessaging.csproj", "{36A1EDB7-904F-4054-B223-D9E0955B8135}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plugin.Messaging", "Plugins\Messaging\Messaging\Plugin.Messaging.csproj", "{36A1EDB7-904F-4054-B223-D9E0955B8135}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PluginSystemDemo.PluginBase", "PluginSystemDemo.PluginBase\PluginSystemDemo.PluginBase.csproj", "{7DF19907-7516-45F8-987B-3A767E543F02}"
 EndProject

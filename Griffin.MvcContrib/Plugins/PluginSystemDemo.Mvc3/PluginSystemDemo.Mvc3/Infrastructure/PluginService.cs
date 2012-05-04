@@ -9,6 +9,7 @@ using System.Web.Hosting;
 using System.Web.Routing;
 using Autofac;
 using Autofac.Core;
+using Autofac.Integration.Mvc;
 using Griffin.MvcContrib.Logging;
 using Griffin.MvcContrib.Plugins;
 using Griffin.MvcContrib.VirtualPathProvider;
@@ -46,7 +47,6 @@ namespace PluginSystemDemo.Mvc3.Infrastructure
                 throw new InvalidOperationException(string.Format("Failed to map path '{0}'.", virtualPluginFolderPath));
 
             _pluginFolder = new DirectoryInfo(path);
-            Startup();
         }
 
         /// <summary>
@@ -67,11 +67,20 @@ namespace PluginSystemDemo.Mvc3.Infrastructure
 
         private void CopyPluginDlls(DirectoryInfo sourceFolder, string destinationFolder)
         {
+            foreach (var file in Directory.GetFiles(sourceFolder.FullName, "Plugin.*.dll"))
+            {
+                LoadPluginAssembly(file);
+                
+            }
+            return;
             foreach (var plug in sourceFolder.GetFiles("*.dll", SearchOption.AllDirectories))
             {
+                if (!plug.Name.StartsWith("Plugin."))
+                    continue;
+                //var dest = Path.Combine(destinationFolder, plug.Name);
                 //if (!File.Exists(Path.Combine(destinationFolder, plug.Name)))
                 //{
-                    File.Copy(plug.FullName, Path.Combine(destinationFolder, plug.Name), true);
+                //File.Copy(plug.FullName, dest, true);
                 //}
                 LoadPluginAssembly(plug.FullName);
             }
@@ -107,7 +116,7 @@ namespace PluginSystemDemo.Mvc3.Infrastructure
 
     public class PluginService
     {
-        private static PluginLoader _pluginLoader;
+        private static PluginLoader2 _pluginLoader;
         private readonly DiskFileLocator _diskFileLocator = new DiskFileLocator();
 
         private readonly EmbeddedViewFileProvider _embededProvider =
@@ -127,8 +136,8 @@ namespace PluginSystemDemo.Mvc3.Infrastructure
         public static void PreScan()
         {
             _pluginLoader = VisualStudioHelper.IsInVisualStudio
-                                ? new PluginLoader("~/bin/Plugins")
-                                : new PluginLoader("~/Plugins");
+                                ? new PluginLoader2("~/bin/")
+                                : new PluginLoader2("~/");
             _pluginLoader.Startup();
         }
 
@@ -140,6 +149,7 @@ namespace PluginSystemDemo.Mvc3.Infrastructure
                 // adjust the second argument if you do not use that convention.
                 _embededProvider.Add(new NamespaceMapping(plugin, Path.GetFileNameWithoutExtension(plugin.Location)));
 
+                builder.RegisterControllers(plugin);
 
                 // All plugins must be copied to the "plugin" sub folder.
                 _diskFileLocator.Add("~/",
