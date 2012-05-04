@@ -42,28 +42,26 @@ namespace PluginSystemDemo.Mvc3
 
         }
 
-        protected void Application_Start()
-        {
-            AreaRegistration.RegisterAllAreas();
+protected void Application_Start()
+{
+    AreaRegistration.RegisterAllAreas();
 
-            RegisterGlobalFilters(GlobalFilters.Filters);
-            RegisterRoutes(RouteTable.Routes);
+    RegisterGlobalFilters(GlobalFilters.Filters);
+    RegisterRoutes(RouteTable.Routes);
 
-            _pluginServicee = new PluginService();
-            RegisterContainer();
+    _pluginServicee = new PluginService();
+    RegisterContainer();
+    HostingEnvironment.RegisterVirtualPathProvider(GriffinVirtualPathProvider.Current);
+    _pluginServicee.Integrate(_container);
+}
 
-
-
-            //RegisterViews();
-        }
-
-        private void RegisterContainer()
-        {
-            var builder = new ContainerBuilder();
-            builder.RegisterControllers(Assembly.GetExecutingAssembly());
-            _pluginServicee.Startup(builder);
-            _container = builder.Build();
-            DependencyResolver.SetResolver(new AutofacDependencyResolver(_container));
-        }
+private void RegisterContainer()
+{
+    var builder = new ContainerBuilder();
+    builder.RegisterControllers(Assembly.GetExecutingAssembly());
+    _pluginServicee.Startup(builder);
+    _container = builder.Build();
+    DependencyResolver.SetResolver(new AutofacDependencyResolver(_container));
+}
     }
 }
