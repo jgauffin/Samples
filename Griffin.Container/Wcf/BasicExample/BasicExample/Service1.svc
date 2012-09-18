@@ -1,0 +1,1 @@
+﻿<%@ ServiceHost Language="C#" Debug="true" Service="BasicExample.Service1" Factory="Griffin.Container.Wcf.ServiceHostFactory" CodeBehind="Service1.svc.cs" %>

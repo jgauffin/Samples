@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleQueries", "SimpleQueries\SimpleQueries.csproj", "{F8329758-4F31-4F74-9777-AC89111903DF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Griffin.Data", "..\..\..\..\Griffin.Data\src\Griffin.Data\Griffin.Data.csproj", "{6FE51C91-968C-42FF-8FB0-98D94DE4F5B3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F8329758-4F31-4F74-9777-AC89111903DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F8329758-4F31-4F74-9777-AC89111903DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F8329758-4F31-4F74-9777-AC89111903DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F8329758-4F31-4F74-9777-AC89111903DF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6FE51C91-968C-42FF-8FB0-98D94DE4F5B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6FE51C91-968C-42FF-8FB0-98D94DE4F5B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6FE51C91-968C-42FF-8FB0-98D94DE4F5B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6FE51C91-968C-42FF-8FB0-98D94DE4F5B3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
