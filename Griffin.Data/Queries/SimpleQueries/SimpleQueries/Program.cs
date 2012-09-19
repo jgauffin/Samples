@@ -26,18 +26,24 @@ namespace SimpleQueries
 
             var queries = new UserQueries(connection);
 
-
             var constraints = new QueryConstraints<User>()
                 .SortBy(x => x.FirstName)
-                .Page(2, 50);
+                .Page(2, 2);
             var result = queries.FindAll(constraints);
-
             foreach (var user in result.Items)
             {
                 // Note that each user is not mapped until it's requested
                 // as opposed to the entire collection being mapped first.
                 Console.WriteLine(user.FirstName);
             }
+
+
+            // and storage:
+            var storage = new UserStorage(connection);
+            var firstUser = storage.Load(1);
+            Console.WriteLine(firstUser.FirstName);
+
+
         }
     }
 }

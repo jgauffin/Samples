@@ -18,7 +18,7 @@ namespace SimpleQueries.Models
             
         }
 
-        public string Id { get; private set; }
+        public int Id { get; private set; }
         public string FirstName { get; private set; }
         public string LastName { get; set; }
         public int Age { get; private set; }

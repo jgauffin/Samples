@@ -27,3 +27,6 @@ obj/
 [Rr]elease*/
 _ReSharper*/
 [Tt]est[Rr]esult*
+Griffin.Data/Queries/SimpleQueries/packages/*
+!*/nuget.exe
+

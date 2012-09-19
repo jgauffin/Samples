@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Griffin.Data;
+using Griffin.Data.BasicLayer;
 using Griffin.Data.BasicLayer.Paging;
 using Griffin.Data.Mappings;
 using Griffin.Data.Queries;
@@ -26,47 +27,41 @@ namespace SimpleQueries.Datalayer
 
         public IEnumerable<User> FindAll()
         {
-            using (var cmd = _connection.CreateCommand())
-            {
-                cmd.CommandText = "SELECT * FROM Users";
-                return cmd.ExecuteQuery<User>();
-            }
+            var cmd = _connection.CreateCommand();
+            cmd.CommandText = "SELECT * FROM Users";
+            return cmd.ExecuteLazyQuery<User>();
         }
 
         public IQueryResult<User> FindAll(IQueryConstraints<User> constraints)
         {
-            using (var cmd = _connection.CreateCommand())
-            {
-                cmd.CommandText = "SELECT * FROM Users";
+            var cmd = _connection.CreateCommand();
+            cmd.CommandText = "SELECT * FROM Users";
 
-                // count
-                var count = (int)cmd.ExecuteScalar();
+            // count
+            var count = cmd.Count();
 
-                // page
-                cmd.CommandText = ApplyConstraints(constraints, cmd.CommandText);
-                var result = cmd.ExecuteQuery<User>();
-                return new QueryResult<User>(result, count);
-            }
+            // page
+            cmd.CommandText = ApplyConstraints(constraints, cmd.CommandText);
+            var result = cmd.ExecuteLazyQuery<User>();
+            return new QueryResult<User>(result, count);
         }
 
         public IQueryResult<User> Find(string text, QueryConstraints<User> constraints)
         {
-            using (var cmd = _connection.CreateCommand())
-            {
-                cmd.CommandText = "SELECT * FROM Users WHERE FirstName LIKE @text";
-                cmd.AddParameter("text", text + "%");
+            var cmd = _connection.CreateCommand();
+            cmd.CommandText = "SELECT * FROM Users WHERE FirstName LIKE @text";
+            cmd.AddParameter("text", text + "%");
 
-                // count
-                var count = (int)cmd.ExecuteScalar();
+            // count
+            var count = cmd.Count();
 
-                // page
-                cmd.CommandText = ApplyConstraints(constraints, cmd.CommandText);
-                var result = cmd.ExecuteQuery<User>();
-                return new QueryResult<User>(result, count);
-            }
+            // page
+            cmd.CommandText = ApplyConstraints(constraints, cmd.CommandText);
+            var result = cmd.ExecuteLazyQuery<User>();
+            return new QueryResult<User>(result, count);
         }
 
- 
+
         private static string ApplyConstraints(IQueryConstraints<User> constraints, string sql)
         {
             if (!string.IsNullOrEmpty(constraints.SortPropertyName))
@@ -78,8 +73,9 @@ namespace SimpleQueries.Datalayer
 
             if (constraints.PageNumber != -1)
             {
-                var pager = new SqlServerPager();
-                sql = pager.ApplyTo(sql, constraints.PageNumber, constraints.PageSize, "id");
+                var context = new DbPagerContext(sql, constraints.PageNumber, constraints.PageSize);
+                var pager = new SqlServerCePager();
+                sql = pager.ApplyTo(context);
             }
 
             return sql;
