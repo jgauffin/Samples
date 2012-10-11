@@ -30,3 +30,4 @@ _ReSharper*/
 Griffin.Data/Queries/SimpleQueries/packages/*
 !*/nuget.exe
 
+Griffin.Decoupled/packages/*
