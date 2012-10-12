@@ -14,9 +14,9 @@ namespace Sample5
         /// </summary>
         /// <param name="context">My context</param>
         /// <param name="message">Message received</param>
-        public void HandleUpstream(IUpstreamContext context, object message)
+        public void HandleUpstream(IUpstreamContext context, IUpstreamMessage message)
         {
-            Console.WriteLine(message);
+            Console.WriteLine("In error handler: {0}", message);
         }
     }
 }

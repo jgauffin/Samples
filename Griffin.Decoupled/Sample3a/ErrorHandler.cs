@@ -1,4 +1,5 @@
 using System;
+using Griffin.Decoupled.Commands.Pipeline.Messages;
 using Griffin.Decoupled.Pipeline;
 
 namespace Sample3a
@@ -15,9 +16,13 @@ namespace Sample3a
         /// </summary>
         /// <param name="context">My context</param>
         /// <param name="message">Message received</param>
-        public void HandleUpstream(IUpstreamContext context, object message)
+        public void HandleUpstream(IUpstreamContext context, IUpstreamMessage message)
         {
-            Console.WriteLine(message);
+            if (message is CommandFailed)
+                Console.WriteLine("Failed to deliver, attempt {0}",
+                                  ((CommandFailed) message).NumberOfAttempts);
+            else
+                Console.WriteLine("In error handler: {0}", message);
         }
 
         #endregion

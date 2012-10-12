@@ -23,7 +23,7 @@ namespace Sample3a
 
             // will also assign the pipeline
             var dispatcher = new PipelineDispatcherBuilder(errorHandler)
-                //.AsyncDispatching(10) // allow 10 commands to be dispatched simultaneosly
+                .AsyncDispatching(10) // allow 10 commands to be dispatched simultaneosly
                 .RetryCommands(3) // attempt to execute commands three times.
                 .UseGriffinContainer(container) // Use Griffin.Container (the "Griffin.Decoupled.Container" nuget package)
                 .UseRavenDbEmbedded() // use RavenDb to store pending commands (the "Griffin.Decoupled.RavenDb.Embedded" nuget package)
