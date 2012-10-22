@@ -37,13 +37,13 @@
     <Reference Include="Griffin.Container">
       <HintPath>..\..\packages\Griffin.Container.1.0.5\lib\net40\Griffin.Container.dll</HintPath>
     </Reference>
-    <Reference Include="Griffin.Decoupled, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Griffin.Decoupled, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Griffin.Decoupled.1.0.0\lib\net40\Griffin.Decoupled.dll</HintPath>
+      <HintPath>..\packages\Griffin.Decoupled.1.0.1-pre2\lib\net40\Griffin.Decoupled.dll</HintPath>
     </Reference>
-    <Reference Include="Griffin.Decoupled.Container, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Griffin.Decoupled.Container, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Griffin.Decoupled.Container.1.0.0\lib\net40\Griffin.Decoupled.Container.dll</HintPath>
+      <HintPath>..\packages\Griffin.Decoupled.Container.1.0.1-pre1\lib\net40\Griffin.Decoupled.Container.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

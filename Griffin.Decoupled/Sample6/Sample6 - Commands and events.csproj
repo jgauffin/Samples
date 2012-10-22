@@ -38,13 +38,13 @@
     <Reference Include="Griffin.Container">
       <HintPath>..\..\packages\Griffin.Container.1.0.5\lib\net40\Griffin.Container.dll</HintPath>
     </Reference>
-    <Reference Include="Griffin.Decoupled, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Griffin.Decoupled, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Griffin.Decoupled.1.0.0\lib\net40\Griffin.Decoupled.dll</HintPath>
+      <HintPath>..\packages\Griffin.Decoupled.1.0.1-pre2\lib\net40\Griffin.Decoupled.dll</HintPath>
     </Reference>
-    <Reference Include="Griffin.Decoupled.Container, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Griffin.Decoupled.Container, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Griffin.Decoupled.Container.1.0.0\lib\net40\Griffin.Decoupled.Container.dll</HintPath>
+      <HintPath>..\packages\Griffin.Decoupled.Container.1.0.1-pre1\lib\net40\Griffin.Decoupled.Container.dll</HintPath>
     </Reference>
     <Reference Include="Griffin.Decoupled.RavenDb, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -80,14 +80,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Core.Implementation\Users\DeliverUsingMessenger.cs" />
+    <Compile Include="Decoupled.Implementation\Messaging\DeliverUsingMessenger.cs" />
     <Compile Include="Domain\Users\User.cs" />
-    <Compile Include="Core.Implementation\Users\LockFoulWordUsers.cs" />
+    <Compile Include="Decoupled.Implementation\Administration\LockFoulWordUsers.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="ErrorHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Core\Users\RegisterUser.cs" />
-    <Compile Include="Core.Implementation\Users\RegisterUserHandler.cs" />
+    <Compile Include="Decoupled\Users\RegisterUser.cs" />
+    <Compile Include="Decoupled.Implementation\Users\RegisterUserHandler.cs" />
     <Compile Include="Domain\Users\UserRegistered.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -96,8 +96,8 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <Content Include="Core.Implementation\ReadMe.txt" />
-    <Content Include="Core\ReadMe.txt" />
+    <Content Include="Decoupled.Implementation\ReadMe.txt" />
+    <Content Include="Decoupled\ReadMe.txt" />
     <Content Include="Domain\ReadMe.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
