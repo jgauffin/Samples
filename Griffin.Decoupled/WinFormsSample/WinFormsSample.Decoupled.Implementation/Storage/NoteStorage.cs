@@ -3,12 +3,13 @@ using Griffin.Decoupled.RavenDb;
 using Raven.Client;
 using WinFormsSample.Domain;
 
-namespace WinFormsSample.Decoupled.Implementation
+namespace WinFormsSample.Decoupled.Implementation.Storage
 {
     [Component]
     internal class NoteStorage : RavenDataStore<Note>, INoteStorage
     {
-        public NoteStorage(IDocumentSession session) : base(session)
+        public NoteStorage(IDocumentSession session)
+            : base(session)
         {
         }
     }

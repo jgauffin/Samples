@@ -18,6 +18,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{7374C3
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinFormsSample.Decoupled.Implementation.Tests", "Griffin.WinFormsSample.Decoupled.Implementation.Tests\WinFormsSample.Decoupled.Implementation.Tests.csproj", "{7B8538F0-FC30-4424-86FD-E001D3F57831}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -44,6 +46,10 @@ Global
 		{5B4C1BDD-2314-454D-93F1-4C7F70C085BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5B4C1BDD-2314-454D-93F1-4C7F70C085BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5B4C1BDD-2314-454D-93F1-4C7F70C085BD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7B8538F0-FC30-4424-86FD-E001D3F57831}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7B8538F0-FC30-4424-86FD-E001D3F57831}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7B8538F0-FC30-4424-86FD-E001D3F57831}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7B8538F0-FC30-4424-86FD-E001D3F57831}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

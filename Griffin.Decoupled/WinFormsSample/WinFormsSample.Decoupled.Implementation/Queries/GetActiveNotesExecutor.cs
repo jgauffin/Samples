@@ -5,10 +5,10 @@ using Raven.Client;
 using WinFormsSample.Decoupled.Queries;
 using WinFormsSample.Domain;
 
-namespace WinFormsSample.Decoupled.Implementation.Data
+namespace WinFormsSample.Decoupled.Implementation.Queries
 {
     [Component]
-    internal class GetActiveNotesExecutor : IExecuteQuery<GetMyActiveNotes, IdTitle[]>
+    public class GetActiveNotesExecutor : IExecuteQuery<GetMyActiveNotes, IdTitle[]>
     {
         private readonly IDocumentSession _session;
 
@@ -17,16 +17,6 @@ namespace WinFormsSample.Decoupled.Implementation.Data
             _session = session;
         }
 
-        /// <summary>
-        /// Invoke the query
-        /// </summary>
-        /// <param name="query">Query to execute</param>
-        /// <returns>
-        /// Result from query. 
-        /// </returns>
-        /// <remarks>
-        /// Collection queries should return an empty result if there aren't any matches. Queries for a single object should return <c>null</c>.
-        /// </remarks>
         public IdTitle[] Execute(GetMyActiveNotes query)
         {
             return (from x in _session.Query<Note>()

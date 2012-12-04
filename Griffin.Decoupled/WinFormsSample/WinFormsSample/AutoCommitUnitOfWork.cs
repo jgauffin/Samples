@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Griffin.Decoupled.Commands;
+﻿using Griffin.Decoupled.Commands;
 using WinFormsSample.Decoupled;
 using IocDispatcher = Griffin.Decoupled.Commands.Pipeline.IocDispatcher;
 
 namespace WinFormsSample
 {
-    class AutoCommitUnitOfWork
+    internal class AutoCommitUnitOfWork
     {
         public AutoCommitUnitOfWork(IocDispatcher dispatcher)
         {
@@ -29,6 +24,5 @@ namespace WinFormsSample
         {
             e.ChildScope.Resolve<IAppUnitOfWork>();
         }
-
     }
 }

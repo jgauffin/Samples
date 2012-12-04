@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{536AC1A5-C957-44A1-89EC-0658A7A9FD31}</ProjectGuid>
+    <ProjectGuid>{7B8538F0-FC30-4424-86FD-E001D3F57831}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>WinFormsSample.Decoupled.Implementation</RootNamespace>
-    <AssemblyName>WinFormsSample.Decoupled.Implementation</AssemblyName>
+    <RootNamespace>Griffin.WinFormsSample.Decoupled.Implementation.Tests</RootNamespace>
+    <AssemblyName>Griffin.WinFormsSample.Decoupled.Implementation.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
@@ -32,62 +32,47 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Griffin.Container, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Griffin.Container.1.1.0\lib\net40\Griffin.Container.dll</HintPath>
-    </Reference>
-    <Reference Include="Griffin.Decoupled, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="Griffin.Decoupled">
       <HintPath>..\packages\Griffin.Decoupled.1.0.1\lib\net40\Griffin.Decoupled.dll</HintPath>
     </Reference>
-    <Reference Include="Griffin.Decoupled.RavenDb, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Griffin.Decoupled.RavenDB.1.0.1\lib\net40\Griffin.Decoupled.RavenDb.dll</HintPath>
-    </Reference>
-    <Reference Include="Griffin.Decoupled.RavenDb.Embedded">
-      <HintPath>..\packages\Griffin.Decoupled.RavenDB.Embedded.1.0.0\lib\net40\Griffin.Decoupled.RavenDb.Embedded.dll</HintPath>
-    </Reference>
-    <Reference Include="Raven.Abstractions, Version=1.2.0.0, Culture=neutral, PublicKeyToken=37f41c7f99471593, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\RavenDB.Client.1.2.2127-Unstable\lib\net40\Raven.Abstractions.dll</HintPath>
-    </Reference>
-    <Reference Include="Raven.Client.Embedded, Version=1.2.0.0, Culture=neutral, PublicKeyToken=37f41c7f99471593, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\RavenDB.Embedded.1.2.2127-Unstable\lib\net40\Raven.Client.Embedded.dll</HintPath>
-    </Reference>
-    <Reference Include="Raven.Client.Lightweight, Version=1.2.0.0, Culture=neutral, PublicKeyToken=37f41c7f99471593, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\RavenDB.Client.1.2.2127-Unstable\lib\net40\Raven.Client.Lightweight.dll</HintPath>
-    </Reference>
-    <Reference Include="Raven.Database, Version=1.2.0.0, Culture=neutral, PublicKeyToken=37f41c7f99471593, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\RavenDB.Database.1.2.2127-Unstable\lib\net40\Raven.Database.dll</HintPath>
+    <Reference Include="NSubstitute">
+      <HintPath>..\packages\NSubstitute.1.4.3.0\lib\NET40\NSubstitute.dll</HintPath>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="xunit">
+      <HintPath>..\packages\xunit.1.9.1\lib\net20\xunit.dll</HintPath>
+    </Reference>
+    <Reference Include="xunit.runner.msbuild">
+      <HintPath>..\packages\xunit.1.9.1\lib\net20\xunit.runner.msbuild.dll</HintPath>
+    </Reference>
+    <Reference Include="xunit.runner.tdnet">
+      <HintPath>..\packages\xunit.1.9.1\lib\net20\xunit.runner.tdnet.dll</HintPath>
+    </Reference>
+    <Reference Include="xunit.runner.utility">
+      <HintPath>..\packages\xunit.1.9.1\lib\net20\xunit.runner.utility.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Commands\CompleteHandler.cs" />
-    <Compile Include="Commands\UpdateHandler.cs" />
-    <Compile Include="CompositionRoot.cs" />
-    <Compile Include="Commands\CreateNoteHandler.cs" />
-    <Compile Include="Queries\GetActiveNotesExecutor.cs" />
-    <Compile Include="Queries\GetNoteExecutor.cs" />
-    <Compile Include="Storage\NoteStorage.cs" />
+    <Compile Include="Class1.cs" />
+    <Compile Include="Commands\CompleteHandlerTests.cs" />
+    <Compile Include="Commands\UpdateHandlerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RavenDbConfiguration.cs" />
+    <Compile Include="TestDomainEvent.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="ReadMe.md" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\WinFormsSample.Decoupled.Implementation\WinFormsSample.Decoupled.Implementation.csproj">
+      <Project>{536AC1A5-C957-44A1-89EC-0658A7A9FD31}</Project>
+      <Name>WinFormsSample.Decoupled.Implementation</Name>
+    </ProjectReference>
     <ProjectReference Include="..\WinFormsSample.Decoupled\WinFormsSample.Decoupled.csproj">
       <Project>{AA3AB934-B2E3-4813-AF3B-9FF8EA264E62}</Project>
       <Name>WinFormsSample.Decoupled</Name>
@@ -97,7 +82,6 @@
       <Name>WinFormsSample.Domain</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

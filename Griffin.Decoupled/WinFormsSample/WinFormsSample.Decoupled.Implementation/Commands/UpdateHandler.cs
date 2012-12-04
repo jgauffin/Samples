@@ -5,7 +5,7 @@ using WinFormsSample.Decoupled.Commands;
 namespace WinFormsSample.Decoupled.Implementation.Commands
 {
     [Component]
-    internal class UpdateHandler : IHandleCommand<UpdateNote>
+    public class UpdateHandler : IHandleCommand<UpdateNote>
     {
         private readonly INoteStorage _storage;
 

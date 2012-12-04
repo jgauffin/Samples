@@ -5,7 +5,7 @@ using WinFormsSample.Decoupled.Commands;
 namespace WinFormsSample.Decoupled.Implementation.Commands
 {
     [Component]
-    internal class CompleteHandler : IHandleCommand<CompleteNote>
+    public class CompleteHandler : IHandleCommand<CompleteNote>
     {
         private readonly INoteStorage _storage;
 

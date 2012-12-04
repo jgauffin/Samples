@@ -46,19 +46,11 @@ namespace WinFormsSample.Decoupled.Implementation
             _observerAdapter.SetObserver(observer);
         }
 
-        // Small adapter to allow us to keep all DB related stuff within this project.
-        // The adapter is used by the CommitUnitOfWork handler.
-
         #region Nested type: ObserverAdapter
 
         private class ObserverAdapter : IUnitOfWorkObserver
         {
             private IUnitOfWorkObserver _observer;
-
-            public void SetObserver(IUnitOfWorkObserver observer)
-            {
-                _observer = observer;
-            }
 
             /// <summary>
             /// A UoW has been created for the current thread.
@@ -83,12 +75,14 @@ namespace WinFormsSample.Decoupled.Implementation
 
                 _observer.Released(unitOfWork, successful);
             }
+
+            public void SetObserver(IUnitOfWorkObserver observer)
+            {
+                _observer = observer;
+            }
         }
 
         #endregion
-
-        // Bridge between our own UoW and the one in the RavenPackage
-        // used to not force all other projects to be dependent on the Raven package.
 
         #region Nested type: UowAdapter
 
@@ -100,5 +94,11 @@ namespace WinFormsSample.Decoupled.Implementation
         }
 
         #endregion
+
+        // Small adapter to allow us to keep all DB related stuff within this project.
+        // The adapter is used by the CommitUnitOfWork handler.
+
+        // Bridge between our own UoW and the one in the RavenPackage
+        // used to not force all other projects to be dependent on the Raven package.
     }
 }

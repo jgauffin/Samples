@@ -8,12 +8,15 @@ using Griffin.Decoupled.Commands.Pipeline;
 using Griffin.Decoupled.Container;
 using Griffin.Decoupled.DomainEvents;
 using Griffin.Decoupled.Pipeline;
-using WinFormsSample.Decoupled;
 using WinFormsSample.Pipeline;
 using IocDispatcher = Griffin.Decoupled.Commands.Pipeline.IocDispatcher;
 
 namespace WinFormsSample
 {
+    /// <summary>
+    /// The configuration in this class may look a bit overwhelming. But to remember that it typically do not 
+    /// increase, no matter how large your application becomes..
+    /// </summary>
     internal static class Program
     {
         private static Container _container;
@@ -73,7 +76,7 @@ namespace WinFormsSample
             DomainEvent.Assign(dispatcher);
         }
 
-   
+
         private static Container CreateContainer()
         {
             var registrar = new ContainerRegistrar(new MyContainerFilter());

@@ -94,9 +94,9 @@ namespace WinFormsSample
             CboNote.Items.Add("");
             CboNote.Items.Add(new IdTitle {Id = "-1", Title = "(Create new note)"});
 
-            var query = new GetMyActiveNotes();
             using (var scope = Program.CreateScope())
             {
+                var query = new GetMyActiveNotes();
                 var result = scope.Resolve<IQueryDispatcher>().Execute(query);
                 foreach (var note in result)
                 {
