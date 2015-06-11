@@ -65,7 +65,7 @@ namespace WebLight
         {
             if (_headerBytesLeft > 0)
             {
-                var toSend3 = Math.Min(context.BytesLeftToEnqueue2, _headerBytesLeft);
+                var toSend3 = Math.Min(context.BytesLeftToEnqueue, _headerBytesLeft);
                 context.Enqueue(_buffer, _offset, toSend3);
                 _offset += toSend3;
                 _headerBytesLeft -= toSend3;
@@ -80,7 +80,7 @@ namespace WebLight
                 {
                     var buffer = _bufferManager.Pop();
                     var bytesToSendThisTime = Math.Min(_bodyBytesToSend, buffer.Capacity);
-                    bytesToSendThisTime = Math.Min(context.BytesLeftToEnqueue2, bytesToSendThisTime);
+                    bytesToSendThisTime = Math.Min(context.BytesLeftToEnqueue, bytesToSendThisTime);
                     var bytesSent = _message.Body.Read(buffer.Buffer, buffer.Offset, bytesToSendThisTime);
                     buffer.Count2 = bytesSent;
                     context.Enqueue(buffer);
@@ -110,7 +110,7 @@ namespace WebLight
 
 
             _headerBytesLeft = (int)_headerStream.Length;
-            var bytesToSend2 = Math.Min(_headerBytesLeft, context.BytesLeftToEnqueue2);
+            var bytesToSend2 = Math.Min(_headerBytesLeft, context.BytesLeftToEnqueue);
             _headerBytesLeft -= bytesToSend2;
             _offset += bytesToSend2;
             context.Enqueue(_buffer, 0, bytesToSend2);
@@ -133,7 +133,7 @@ namespace WebLight
             while (context.CanEnqueueMore && maxFiveBuffers > 0 && _bodyBytesToSend > 0)
             {
                 var buffer = _bufferManager.Pop();
-                var bytesToSendThisTime = Math.Min(context.BytesLeftToEnqueue2, buffer.Capacity);
+                var bytesToSendThisTime = Math.Min(context.BytesLeftToEnqueue, buffer.Capacity);
                 Debug.Assert(bytesToSendThisTime > 0);
                 var bytesSent = _message.Body.Read(buffer.Buffer, buffer.Offset, bytesToSendThisTime);
                 Debug.Assert(bytesSent > 0);

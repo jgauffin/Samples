@@ -7,8 +7,11 @@ using System.Runtime.CompilerServices;
 namespace WebLight
 {
     /// <summary>
-    /// Builds the next segment of packets that should be enqued to the socket.
+    /// Builds the next segment of packets that should be enqueued to the socket.
     /// </summary>
+    /// <remarks>
+    /// Most <c>[MethodImpl(MethodImplOptions.AggressiveInlining)]</c> is probably useless, but oh'boy, did it feel good to add them? ;P
+    /// </remarks>
     public sealed class WriterContext
     {
         private BufferSlice[] _queue = new BufferSlice[500];
@@ -26,10 +29,10 @@ namespace WebLight
         /// <summary>
         /// amount of bytes that we may enqueue.
         /// </summary>
-        public int BytesLeftToEnqueue2 { get { return _maxBytesToEnqueue - _bytesEnqueued; } }
+        public int BytesLeftToEnqueue { get { return _maxBytesToEnqueue - _bytesEnqueued; } }
 
         /// <summary>
-        /// How many more buffers that we may enqueue.
+        /// Are we allowed to enqueue more?
         /// </summary>
         public bool CanEnqueueMore { get { return _maxBufferCount - _index > 0 && _maxBytesToEnqueue - _bytesEnqueued > 0; } }
 
