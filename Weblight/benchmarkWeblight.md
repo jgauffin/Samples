@@ -20,7 +20,7 @@ No need to install it. You just need the benchmarking tool `bin\ab.exe`.
 # Run benchmarking
 
 ```
-ab -n 10000 -c 50 -k http://localhost:8844/
+ab -n 10000 -c 50 -k http://127.0.0.1:8844/
 ```
 
 Make sure that `-n` and `c` is the same of my server and ASP.NET
