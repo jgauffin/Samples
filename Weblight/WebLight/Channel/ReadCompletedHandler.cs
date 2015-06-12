@@ -1,4 +1,4 @@
-namespace WebLight
+namespace WebLight.Channel
 {
     /// <summary>
     /// Callback for <see cref="SocketChannel.ReadCompleted"/>.

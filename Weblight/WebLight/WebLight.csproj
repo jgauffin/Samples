@@ -45,27 +45,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BufferAdapter.cs" />
-    <Compile Include="BufferManager.cs" />
-    <Compile Include="BufferSlice.cs" />
-    <Compile Include="ChannelFailureEventArgs.cs" />
-    <Compile Include="CloseOption.cs" />
-    <Compile Include="HttpMessageDecoder.cs" />
-    <Compile Include="HttpRequestHandler.cs" />
+    <Compile Include="Buffers\BufferAdapter.cs" />
+    <Compile Include="Buffers\BufferManager.cs" />
+    <Compile Include="Buffers\BufferSlice.cs" />
+    <Compile Include="Channel\ChannelFailureEventArgs.cs" />
+    <Compile Include="Channel\CloseOption.cs" />
+    <Compile Include="Http\HttpMessageDecoder.cs" />
+    <Compile Include="Http\HttpRequestHandler.cs" />
     <Compile Include="IMinimalDecoder.cs" />
     <Compile Include="IMinimalEncoder.cs" />
-    <Compile Include="MinimalHttpDecoder.cs" />
-    <Compile Include="ReadCompletedHandler.cs" />
-    <Compile Include="ReceivedEventArgs.cs" />
+    <Compile Include="Http\HttpDecoder.cs" />
+    <Compile Include="Channel\ReadCompletedHandler.cs" />
+    <Compile Include="Channel\ReceivedEventArgs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ReadCompletedContext.cs" />
-    <Compile Include="RingBufferStream.cs" />
-    <Compile Include="SimpleHttpEncoder.cs" />
-    <Compile Include="SimpleHttpServer.cs" />
-    <Compile Include="SocketChannel.cs" />
-    <Compile Include="WriteCompletedCallbackContext.cs" />
-    <Compile Include="WriteCompletedHandler.cs" />
-    <Compile Include="WriterContext.cs" />
+    <Compile Include="Channel\ReadCompletedContext.cs" />
+    <Compile Include="Http\HttpEncoder.cs" />
+    <Compile Include="Http\HttpListener.cs" />
+    <Compile Include="Channel\SocketChannel.cs" />
+    <Compile Include="Channel\WriteCompletedCallbackContext.cs" />
+    <Compile Include="Channel\WriteCompletedHandler.cs" />
+    <Compile Include="Channel\WriterContext.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

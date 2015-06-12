@@ -1,4 +1,4 @@
-namespace WebLight
+namespace WebLight.Channel
 {
     public enum CloseOption
     {

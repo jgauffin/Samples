@@ -9,6 +9,10 @@ using System.Threading;
 using System.Threading.Tasks;
 using Griffin.Net.Protocols.Http;
 using WebLight;
+using WebLight.Buffers;
+using WebLight.Channel;
+using WebLight.Http;
+using HttpListener = WebLight.Http.HttpListener;
 
 namespace Weblight.Console
 {
@@ -33,7 +37,7 @@ namespace Weblight.Console
             responseSlice = new BufferSlice(_responseBytes, 0, _responseBytes.Length);
 
             ThreadPool.SetMinThreads(100, 100);
-            var server = new SimpleHttpServer(10000);
+            var server = new HttpListener(10000);
             server.PreAllocateChannels(1000);
             server.RequestHandler = OnRequests;
             server.Start(8844);

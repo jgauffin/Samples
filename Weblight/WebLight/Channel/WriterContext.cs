@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Net.Sockets;
 using System.Runtime.CompilerServices;
+using WebLight.Buffers;
 
-namespace WebLight
+namespace WebLight.Channel
 {
     /// <summary>
     /// Builds the next segment of packets that should be enqueued to the socket.

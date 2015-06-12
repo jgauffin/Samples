@@ -1,6 +1,8 @@
-﻿namespace WebLight
+﻿using WebLight.Buffers;
+
+namespace WebLight.Http
 {
-    public class MinimalHttpDecoder : HttpMessageDecoder2, IMinimalDecoder
+    public class HttpDecoder : HttpMessageDecoder2, IMinimalDecoder
     {
         BufferAdapter _buffer = new BufferAdapter();
 

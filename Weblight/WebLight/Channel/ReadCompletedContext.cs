@@ -1,4 +1,4 @@
-namespace WebLight
+namespace WebLight.Channel
 {
     /// <summary>
     /// Context for <see cref="ReadCompletedHandler"/>.

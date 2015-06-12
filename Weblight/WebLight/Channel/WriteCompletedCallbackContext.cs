@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace WebLight
+namespace WebLight.Channel
 {
     public sealed class WriteCompletedCallbackContext
     {

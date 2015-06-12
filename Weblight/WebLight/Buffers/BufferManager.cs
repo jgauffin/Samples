@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Concurrent;
 
-namespace WebLight
+namespace WebLight.Buffers
 {
     public class BufferManager
     {

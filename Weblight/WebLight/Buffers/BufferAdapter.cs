@@ -1,8 +1,11 @@
 ﻿using System;
 using Griffin.Net.Channels;
 
-namespace WebLight
+namespace WebLight.Buffers
 {
+    /// <summary>
+    /// Adapter for the Griffin.Framework encoder/decoder.
+    /// </summary>
     public class BufferAdapter : ISocketBuffer
     {
         /// <summary>

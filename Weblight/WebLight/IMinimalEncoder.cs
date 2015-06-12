@@ -1,3 +1,5 @@
+using WebLight.Channel;
+
 namespace WebLight
 {
     public interface IMinimalEncoder

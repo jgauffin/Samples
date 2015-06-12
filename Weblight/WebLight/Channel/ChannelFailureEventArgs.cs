@@ -1,7 +1,7 @@
 using System;
 using System.Net.Sockets;
 
-namespace WebLight
+namespace WebLight.Channel
 {
     public class ChannelFailureEventArgs
     {

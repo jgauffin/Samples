@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-namespace WebLight
+namespace WebLight.Channel
 {
     public class ReceivedEventArgs : EventArgs
     {

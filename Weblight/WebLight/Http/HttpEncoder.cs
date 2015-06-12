@@ -2,13 +2,15 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using Griffin.Net.Protocols.Http;
+using WebLight.Buffers;
+using WebLight.Channel;
 
-namespace WebLight
+namespace WebLight.Http
 {
     /// <summary>
     ///     Used to encode request/response into a byte stream.
     /// </summary>
-    public class SimpleHttpEncoder : IMinimalEncoder
+    public class HttpEncoder : IMinimalEncoder
     {
         private readonly BufferManager _bufferManager;
         private readonly byte[] _buffer = new byte[65535];
@@ -23,7 +25,7 @@ namespace WebLight
         /// <summary>
         /// Initializes a new instance of the <see cref="HttpMessageEncoder"/> class.
         /// </summary>
-        public SimpleHttpEncoder(BufferManager bufferManager)
+        public HttpEncoder(BufferManager bufferManager)
         {
             _bufferManager = bufferManager;
             _headerStream = new MemoryStream(_buffer);

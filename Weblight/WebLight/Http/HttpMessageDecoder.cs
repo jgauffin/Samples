@@ -8,17 +8,11 @@ using Griffin.Net.Protocols.Http.Messages;
 using Griffin.Net.Protocols.Http.Serializers;
 using Griffin.Net.Protocols.Serializers;
 
-namespace WebLight
+namespace WebLight.Http
 {
     /// <summary>
-    ///     Decodes HTTP messages
+    ///    From griffin framework with a small adaptation
     /// </summary>
-    /// <remarks>
-    ///     <para>
-    ///         Per default the body is not decoded. To change that behavior you should use the constructor that takes
-    ///         a message serializer.
-    ///     </para>
-    /// </remarks>
     public class HttpMessageDecoder2 : IMessageDecoder
     {
         private readonly HttpCookieParser _cookieParser = new HttpCookieParser();

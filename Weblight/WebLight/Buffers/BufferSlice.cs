@@ -1,6 +1,6 @@
 using System;
 
-namespace WebLight
+namespace WebLight.Buffers
 {
     public sealed class BufferSlice
     {
