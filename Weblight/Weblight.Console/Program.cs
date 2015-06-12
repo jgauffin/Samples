@@ -48,12 +48,12 @@ namespace Weblight.Console
 
         private static void OnRequests(SocketChannel channel, HttpRequestBase request)
         {
-            //var resposne = request.CreateResponse();
-            //resposne.StatusCode = 200;
-            //resposne.Body = GetStream();
-            //resposne.AddHeader("Keep-Alive", "timeout=15, max=100");
-            //resposne.Body.Write(Encoding.ASCII.GetBytes("HelloWorld"), 0, 10);
-            channel.Send(responseSlice);
+            var response = request.CreateResponse();
+            response.StatusCode = 200;
+            response.Body = GetStream();
+            response.AddHeader("Keep-Alive", "timeout=15, max=100");
+            response.Body.Write(Encoding.ASCII.GetBytes("HelloWorld"), 0, 10);
+            channel.Send(response);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
